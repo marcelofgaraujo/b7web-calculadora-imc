@@ -7,7 +7,6 @@ type Props = {
         upperLimit: number,
         bgColor: string,
         bgImg: string,
-        // thisSituation: boolean
     }
     isSelected: boolean
 }
