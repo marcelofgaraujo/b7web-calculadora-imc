@@ -1,25 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import * as C from './appStyles'
+import Card from './components/card'
+import { listStatus } from './components/listStatus'
 
 function App() {
+  const [height, setHeight] = useState<number>();
+  const [weight, setWeight] = useState<number>();
+  const [currentSituation, setCurrentSituation] = useState<string>()
+
+  const handleHeight = (e:React.ChangeEvent<HTMLInputElement>) => {
+    setHeight(parseInt(e.target.value))
+  }
+
+  const handleWeight = (e:React.ChangeEvent<HTMLInputElement>) => {
+    setWeight(parseInt(e.target.value))
+  }
+
+  const handleIMC = () => {
+    if (!height || height < 0) return console.log('error');
+    if (!weight || weight < 0) return console.log('error');
+    let IMC = weight/(height^2)
+    const foundStatus = listStatus.find((list) => IMC > list.bottomLimit && IMC < list.upperLimit)
+    if (!foundStatus) return console.log('status not found')
+    setCurrentSituation(foundStatus.situation)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <C.Body>
+      <C.Header />
+      <C.Main>
+        <C.Left>
+          <C.Info>
+            <h1>Calcule seu IMC.</h1>
+            <p>IMC é a sigla para Índice de Massa Corpórea, parâmetro adotado pela Organização Mundial de Saúde para calcular o peso ideal de cada pessoa.</p>
+          </C.Info>
+          <C.Inputs>
+            <input type="number" onChange={handleHeight} placeholder='Digite sua altura. Ex: 1.5 (em metros)' />
+            <input type="number" onChange={handleWeight} placeholder='Digite seu peso. Ex: 75.3 (em kg)' />
+            <button onClick={handleIMC}>Calcular</button>
+          </C.Inputs>
+        </C.Left>
+        <C.Right>
+          {listStatus.map((items, index)=> (
+            <Card key={index} data={items} isSelected={currentSituation === items.situation} />
+          ))}
+        </C.Right>
+      </C.Main>
+    </C.Body>
   );
 }
 
