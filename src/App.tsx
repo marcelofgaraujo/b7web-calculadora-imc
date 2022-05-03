@@ -9,19 +9,20 @@ function App() {
   const [currentSituation, setCurrentSituation] = useState<string>()
 
   const handleHeight = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setHeight(parseInt(e.target.value))
+    setHeight(parseFloat(e.target.value))
   }
 
   const handleWeight = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setWeight(parseInt(e.target.value))
+    setWeight(parseFloat(e.target.value))
   }
 
   const handleIMC = () => {
-    if (!height || height < 0) return console.log('error');
-    if (!weight || weight < 0) return console.log('error');
-    let IMC = weight/(height^2)
+    if (!height || height < 0) return alert('Por favor, informe uma condição válida!')
+    if (!weight || weight < 0) return alert('Por favor, informe uma condição válida!')
+    let IMC = weight/(height*height)
+    console.log(IMC)
     const foundStatus = listStatus.find((list) => IMC > list.bottomLimit && IMC < list.upperLimit)
-    if (!foundStatus) return console.log('status not found')
+    if (!foundStatus) return alert('Por favor, informe uma condição válida!')
     setCurrentSituation(foundStatus.situation)
   }
 
