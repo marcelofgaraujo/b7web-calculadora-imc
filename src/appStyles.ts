@@ -9,7 +9,7 @@ export const Header = styled.header`
     background-image: url(${powered});
     height: 50px;
     width: auto;
-    margin-left: 10vw;
+    margin-left: 9.5vw;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center left 9.4%;
