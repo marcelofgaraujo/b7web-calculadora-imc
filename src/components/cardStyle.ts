@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import arrow from '../assets/leftarrow.png'
 
 type StatusProps = {
     bgColor: string;
@@ -23,7 +24,18 @@ export const Status = styled.div<StatusProps>`
 
     h2 {
         font-weight: 500;
-        font-size: 35px;
-        margin-top: 145px;
+        font-size: ${props => props.isSelected ? '50px' : '35px'};
+        margin-top: ${props => props.isSelected ? '200px' : '145px'};
+    }
+
+    .result {
+        font-size: 25px;
+        margin-bottom: 50px;
+    }
+
+    .arrow {
+        background-image: ${arrow};
+        height: 70px;
+        width: 70px;
     }
 `
