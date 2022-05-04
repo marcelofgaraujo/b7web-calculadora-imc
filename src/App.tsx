@@ -6,6 +6,7 @@ import { listStatus } from './components/listStatus'
 function App() {
   const [height, setHeight] = useState<number>();
   const [weight, setWeight] = useState<number>();
+  const [IMC, setIMC] = useState<number>(0);
   const [currentSituation, setCurrentSituation] = useState<string>()
 
   const handleHeight = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -19,8 +20,10 @@ function App() {
   const handleIMC = () => {
     if (!height || height < 0) return alert('Por favor, informe uma condição válida!')
     if (!weight || weight < 0) return alert('Por favor, informe uma condição válida!')
-    let IMC = weight/(height*height)
+    // let IMC = weight/(height*height)
+    setIMC(weight/(height*height))
     console.log(IMC)
+    if (!IMC) return console.error
     const foundStatus = listStatus.find((list) => IMC > list.bottomLimit && IMC < list.upperLimit)
     if (!foundStatus) return alert('Por favor, informe uma condição válida!')
     setCurrentSituation(foundStatus.situation)
@@ -43,7 +46,7 @@ function App() {
         </C.Left>
         <C.Right>
           {listStatus.map((items, index)=> (
-            <Card key={index} data={items} isSelected={currentSituation === items.situation} />
+            <Card key={index} data={items} isSelected={currentSituation === items.situation} IMC={IMC} />
           ))}
         </C.Right>
       </C.Main>
