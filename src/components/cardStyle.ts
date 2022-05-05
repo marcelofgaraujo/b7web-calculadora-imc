@@ -3,23 +3,23 @@ import styled from 'styled-components'
 type StatusProps = {
     bgColor: string;
     bgImg: string;
-    isSelected: boolean
+    isSelected: boolean,
+    shouldHide: boolean
 }
 
 export const Status = styled.div<StatusProps>`
-    display: flex;
-    position: ${props => props.isSelected ? 'absolute' : 'static'};
-    z-index: ${props=> props.isSelected ? '1' : '0'};
+    display: ${props => props.shouldHide ? 'none' : 'flex'};
     flex-direction: column;
     align-items: center;
     background-image: url(${props => props.bgImg});
     background-color: ${props => props.bgColor};
-    width: ${props => props.isSelected ? '620px' : '300px'};
-    height: ${props => props.isSelected ? '520px' : '250px'};
+    width: ${props => props.isSelected ? '100%' : '300px'};
+    height: ${props => props.isSelected ? '100%' : '250px'};
     border-radius: 10px;
     color: white;
     background-repeat: no-repeat;
     background-position: center top 20%;
+    position: relative;
 
     h2 {
         font-weight: 500;

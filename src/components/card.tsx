@@ -11,12 +11,13 @@ type Props = {
     }
     isSelected: boolean,
     IMC: number,
-    handleClearCallBack: () => void
+    handleClearCallBack: () => void,
+    shouldHide: boolean
 }
 
-function Card({ data, isSelected, IMC, handleClearCallBack }: Props) {
+function Card({ data, isSelected, IMC, handleClearCallBack, shouldHide }: Props) {
     return (
-        <Status bgImg={data.bgImg} bgColor={data.bgColor} isSelected={isSelected}>
+        <Status bgImg={data.bgImg} bgColor={data.bgColor} isSelected={isSelected} shouldHide={shouldHide}>
             <h2>{data.situation}</h2>
             {isSelected && <>
             <FiArrowLeft onClick={handleClearCallBack}/>

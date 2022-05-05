@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useRef } from "react";
 import { useToast } from "react-components";
 import { ElementStatus } from "react-components/dist/shared/theme/colors";
 import * as C from "./appStyles";
@@ -10,6 +10,8 @@ function App() {
   const [weight, setWeight] = useState<number>();
   const [IMC, setIMC] = useState<number>(0);
   const [currentSituation, setCurrentSituation] = useState<string>();
+  const inputRefHeight = useRef<any>(null);
+  const inputRefWeight = useRef<any>(null);
   const { addToast } = useToast();
 
   const handleHeight = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,6 +20,7 @@ function App() {
 
   const handleWeight = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWeight(parseFloat(e.target.value));
+    
   };
 
   const handleErrorImcCalculate = useCallback(
@@ -40,12 +43,12 @@ function App() {
       return;
     }
 
-    const newIMC = weight / (height * height);
-    if (!newIMC) return console.error;
+    const IMC = weight / (height * height);
+    if (!IMC) return console.error;
 
     setIMC(weight / (height * height));
 
-    const foundStatus = listStatus.find(list => newIMC > list.bottomLimit && newIMC < list.upperLimit);
+    const foundStatus = listStatus.find(list => IMC > list.bottomLimit && IMC < list.upperLimit);
 
     if (!foundStatus) {
       handleErrorImcCalculate("Status", "Nao foi encontrado nenhum status");
@@ -56,8 +59,12 @@ function App() {
     handleErrorImcCalculate("Sucesso", "IMC calculado com Sucesso!", "success");
     setCurrentSituation(undefined)
     setCurrentSituation(foundStatus.situation);
+
+    inputRefHeight.current.value = ''
+    inputRefHeight.current.focus()
+    inputRefWeight.current.value = ''
   };
-  console.log(currentSituation)
+
   return (
     <C.Body>
       <C.Header />
@@ -71,14 +78,20 @@ function App() {
             </p>
           </C.Info>
           <C.Inputs>
-            <input type="number" onChange={handleHeight} placeholder="Digite sua altura. Ex: 1.5 (em metros)" />
-            <input type="number" onChange={handleWeight} placeholder="Digite seu peso. Ex: 75.3 (em kg)" />
+            <input ref={inputRefHeight} type="number" onChange={handleHeight} placeholder="Digite sua altura. Ex: 1.5 (em metros)" />
+            <input ref={inputRefWeight} type="number" onChange={handleWeight} placeholder="Digite seu peso. Ex: 75.3 (em kg)" />
             <button onClick={handleIMC}>Calcular</button>
           </C.Inputs>
         </C.Left>
         <C.Right>
           {listStatus.map((items, index) => (
-            <Card key={index} data={items} isSelected={currentSituation === items.situation} IMC={IMC} handleClearCallBack={() => setCurrentSituation(undefined)} />
+            <Card 
+            key={index} 
+            data={items} 
+            isSelected={currentSituation === items.situation} 
+            IMC={IMC} handleClearCallBack={() => setCurrentSituation(undefined)} 
+            shouldHide={(currentSituation === items.situation || currentSituation === undefined) ? false : true}
+            />
           ))}
         </C.Right>
       </C.Main>
