@@ -10,8 +10,8 @@ function App() {
   const [weight, setWeight] = useState<number>();
   const [IMC, setIMC] = useState<number>(0);
   const [currentSituation, setCurrentSituation] = useState<string>();
-  const inputRefHeight = useRef<any>(null);
-  const inputRefWeight = useRef<any>(null);
+  const inputRefHeight = useRef<HTMLInputElement>(null);
+  const inputRefWeight = useRef<HTMLInputElement>(null);
   const { addToast } = useToast();
 
   const handleHeight = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,26 +20,26 @@ function App() {
 
   const handleWeight = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWeight(parseFloat(e.target.value));
-    
   };
 
   const handleErrorImcCalculate = useCallback(
     (title: string, subtitle: string, status: ElementStatus = "warning") => {
-      addToast({ title: title, status: status, subtitle: subtitle, duration: 3000, position: "top-right" });
+      addToast({ title: title, status: status, subtitle: subtitle, duration: 3000 });
     },
     [addToast]
   );
 
   const handleIMC = () => {
+    if (!inputRefHeight.current) return;
     if (!height || height < 0) {
       handleErrorImcCalculate("Altura", "Altura inválida");
-      setCurrentSituation(undefined)
+      setCurrentSituation(undefined);
       return;
     }
 
     if (!weight || weight < 0) {
       handleErrorImcCalculate("Peso", "Peso inválido");
-      setCurrentSituation(undefined)
+      setCurrentSituation(undefined);
       return;
     }
 
@@ -52,18 +52,24 @@ function App() {
 
     if (!foundStatus) {
       handleErrorImcCalculate("Status", "Nao foi encontrado nenhum status");
-      setCurrentSituation(undefined)
+      setCurrentSituation(undefined);
       return;
     }
 
     handleErrorImcCalculate("Sucesso", "IMC calculado com Sucesso!", "success");
-    setCurrentSituation(undefined)
+    setCurrentSituation(undefined);
     setCurrentSituation(foundStatus.situation);
 
-    inputRefHeight.current.value = ''
-    inputRefHeight.current.focus()
-    inputRefWeight.current.value = ''
+    inputRefHeight.current.focus();
   };
+
+  const handleClearSituation = useCallback(() => {
+    if (!inputRefHeight.current || !inputRefWeight.current) return;
+    setCurrentSituation(undefined);
+    inputRefHeight.current.value = "";
+    inputRefWeight.current.value = "";
+    inputRefHeight.current.focus();
+  }, []);
 
   return (
     <C.Body>
@@ -78,19 +84,30 @@ function App() {
             </p>
           </C.Info>
           <C.Inputs>
-            <input ref={inputRefHeight} type="number" onChange={handleHeight} placeholder="Digite sua altura. Ex: 1.5 (em metros)" />
-            <input ref={inputRefWeight} type="number" onChange={handleWeight} placeholder="Digite seu peso. Ex: 75.3 (em kg)" />
+            <input
+              ref={inputRefHeight}
+              type="number"
+              onChange={handleHeight}
+              placeholder="Digite sua altura. Ex: 1.5 (em metros)"
+            />
+            <input
+              ref={inputRefWeight}
+              type="number"
+              onChange={handleWeight}
+              placeholder="Digite seu peso. Ex: 75.3 (em kg)"
+            />
             <button onClick={handleIMC}>Calcular</button>
           </C.Inputs>
         </C.Left>
         <C.Right>
           {listStatus.map((items, index) => (
-            <Card 
-            key={index} 
-            data={items} 
-            isSelected={currentSituation === items.situation} 
-            IMC={IMC} handleClearCallBack={() => setCurrentSituation(undefined)} 
-            shouldHide={(currentSituation === items.situation || currentSituation === undefined) ? false : true}
+            <Card
+              key={index}
+              data={items}
+              isSelected={currentSituation === items.situation}
+              IMC={IMC}
+              handleClearCallBack={handleClearSituation}
+              shouldHide={currentSituation === items.situation || currentSituation === undefined ? false : true}
             />
           ))}
         </C.Right>
