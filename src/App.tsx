@@ -22,7 +22,7 @@ function App() {
 
   const handleErrorImcCalculate = useCallback(
     (title: string, subtitle: string, status: ElementStatus = "warning") => {
-      addToast({ title: title, status: status, subtitle: subtitle, duration: 3000 });
+      addToast({ title: title, status: status, subtitle: subtitle, duration: 4000, position: "top-left" });
     },
     [addToast]
   );
