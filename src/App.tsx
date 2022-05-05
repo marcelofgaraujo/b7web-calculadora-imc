@@ -29,17 +29,19 @@ function App() {
 
   const handleIMC = () => {
     if (!height || height < 0) {
-      handleErrorImcCalculate("Height", "Height invalido");
+      handleErrorImcCalculate("Altura", "Altura inválida");
+      setCurrentSituation(undefined)
       return;
     }
 
     if (!weight || weight < 0) {
-      handleErrorImcCalculate("Weight", "Weight invalido");
+      handleErrorImcCalculate("Peso", "Peso inválido");
+      setCurrentSituation(undefined)
       return;
     }
 
     const newIMC = weight / (height * height);
-    if (!IMC) return console.error;
+    if (!newIMC) return console.error;
 
     setIMC(weight / (height * height));
 
@@ -47,14 +49,15 @@ function App() {
 
     if (!foundStatus) {
       handleErrorImcCalculate("Status", "Nao foi encontrado nenhum status");
+      setCurrentSituation(undefined)
       return;
     }
 
     handleErrorImcCalculate("Sucesso", "IMC calculado com Sucesso!", "success");
+    setCurrentSituation(undefined)
     setCurrentSituation(foundStatus.situation);
   };
-
-  console.log(currentSituation);
+  console.log(currentSituation)
   return (
     <C.Body>
       <C.Header />
@@ -75,7 +78,7 @@ function App() {
         </C.Left>
         <C.Right>
           {listStatus.map((items, index) => (
-            <Card key={index} data={items} isSelected={currentSituation === items.situation} IMC={IMC} />
+            <Card key={index} data={items} isSelected={currentSituation === items.situation} IMC={IMC} handleClearCallBack={() => setCurrentSituation(undefined)} />
           ))}
         </C.Right>
       </C.Main>

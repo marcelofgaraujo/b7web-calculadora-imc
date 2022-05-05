@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import arrow from '../assets/leftarrow.png'
 
 type StatusProps = {
     bgColor: string;
@@ -33,9 +32,13 @@ export const Status = styled.div<StatusProps>`
         margin-bottom: 50px;
     }
 
-    .arrow {
-        background-image: ${arrow};
+    svg {
         height: 70px;
         width: 70px;
+        position: absolute;
+        top: 50%;
+        left: 0px;
+        transform: translateY(-50%);
+        cursor: pointer;
     }
 `

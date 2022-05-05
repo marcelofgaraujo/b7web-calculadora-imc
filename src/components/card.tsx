@@ -1,4 +1,5 @@
-import { Status } from './cardStyle'
+import { Status } from './cardStyle';
+import { FiArrowLeft } from "react-icons/fi";
 
 type Props = {
     data: {
@@ -9,17 +10,18 @@ type Props = {
         bgImg: string,
     }
     isSelected: boolean,
-    IMC: number
+    IMC: number,
+    handleClearCallBack: () => void
 }
 
-function Card({ data, isSelected, IMC }: Props) {
+function Card({ data, isSelected, IMC, handleClearCallBack }: Props) {
     return (
         <Status bgImg={data.bgImg} bgColor={data.bgColor} isSelected={isSelected}>
             <h2>{data.situation}</h2>
             {isSelected && <>
-            <div className='arrow'></div>
+            <FiArrowLeft onClick={handleClearCallBack}/>
             <p className='result'>Seu IMC é de {IMC.toFixed(2)} kg/m²</p></>}
-            <p> IMC está entre {data.bottomLimit} e {data.upperLimit}</p>
+            <p>IMC está entre {data.bottomLimit} e {data.upperLimit}</p>
         </Status>
     )
 }
