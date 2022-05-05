@@ -38,12 +38,12 @@ function App() {
       return;
     }
 
-    // let IMC = weight/(height*height)
-    setIMC(weight / (height * height));
-    console.log(`IMC`, IMC);
+    const newIMC = weight / (height * height);
     if (!IMC) return console.error;
-    const foundStatus = listStatus.find(list => IMC > list.bottomLimit && IMC < list.upperLimit);
-    console.log(`foundStatus`, foundStatus);
+
+    setIMC(weight / (height * height));
+
+    const foundStatus = listStatus.find(list => newIMC > list.bottomLimit && newIMC < list.upperLimit);
 
     if (!foundStatus) {
       handleErrorImcCalculate("Status", "Nao foi encontrado nenhum status");
@@ -54,6 +54,7 @@ function App() {
     setCurrentSituation(foundStatus.situation);
   };
 
+  console.log(currentSituation);
   return (
     <C.Body>
       <C.Header />
