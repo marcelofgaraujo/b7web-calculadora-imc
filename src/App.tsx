@@ -69,6 +69,8 @@ function App() {
     inputRefHeight.current.value = "";
     inputRefWeight.current.value = "";
     inputRefHeight.current.focus();
+    setHeight(undefined);
+    setWeight(undefined);
   }, []);
 
   return (
