@@ -67,7 +67,7 @@ export const Status = styled.div<StatusProps>`
             top: 0;
             left: 40%;
             height: 40px;
-
+            width: 40px;
         }
     }
 `
