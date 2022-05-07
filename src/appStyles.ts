@@ -4,6 +4,7 @@ import powered from './assets/powered.png'
 export const Body = styled.div`
     width: 100vw;
     height: auto;
+    overflow-x: hidden;
 `
 export const Header = styled.header`
     background-image: url(${powered});
@@ -70,8 +71,9 @@ export const Info = styled.div`
         }
 
         p {
-            margin: 15px 4% 0 4%;
+            margin: 15px 0 0 0;
             font-size: 17px;
+            text-align: justify;
         }
     }
 `
@@ -110,13 +112,13 @@ export const Inputs = styled.div`
         input {
             height: 25px;
             font-size: 17px;
-            width: 90%;
+            width: 100%;
         }
 
         button {
             height: 40px;
             font-size: 19px;
-            width: 90%;
+            width: 100%;
             margin-top: 20px;
         }
     }
@@ -133,5 +135,6 @@ export const Right = styled.div`
         justify-content: center;
         gap: 10px;
         height: 310px;
+        margin-bottom: 30px;
     }
 `
