@@ -41,4 +41,33 @@ export const Status = styled.div<StatusProps>`
         transform: translateY(-50%);
         cursor: pointer;
     }
+
+    @media (max-width: 900px) {
+        width: ${props => props.isSelected ? '100%' : '170px'};
+        height: ${props => props.isSelected ? '100%' : '150px'};
+        background-size: 25%;
+        text-align: center;
+
+        h2 {
+            font-size: ${props => props.isSelected ? '40px' : '20px'};
+            margin-top: ${props => props.isSelected ? '140px' : '75px'};
+        }
+
+        .limits {
+            font-size: 15px;
+        }
+
+        .result {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        svg {
+            transform: rotate(90deg);
+            top: 0;
+            left: 40%;
+            height: 40px;
+
+        }
+    }
 `

@@ -22,7 +22,7 @@ function Card({ data, isSelected, IMC, handleClearCallBack, shouldHide }: Props)
             {isSelected && <>
             <FiArrowLeft onClick={handleClearCallBack}/>
             <p className='result'>Seu IMC é de {IMC.toFixed(2)} kg/m²</p></>}
-            <p>IMC está entre {data.bottomLimit} e {data.upperLimit}</p>
+            <p className='limits'>IMC está entre {data.bottomLimit} e {data.upperLimit}</p>
         </Status>
     )
 }

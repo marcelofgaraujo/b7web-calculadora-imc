@@ -15,6 +15,12 @@ export const Header = styled.header`
     background-position: center left 9.4%;
     margin-top: 100px;
     display: flex;
+
+    @media (max-width: 900px) {
+        width: 100vw;
+        height: 35px;
+        margin: 20px 0 0 5px;
+    }
 `
 export const Main = styled.main`
     display: flex;
@@ -22,12 +28,25 @@ export const Main = styled.main`
     width: 100vw;
     justify-content: center;
     margin-top: 50px;
+
+    @media (max-width: 900px) {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 25px;
+        gap: 50px;
+        height: auto;
+    }
 `
 export const Left = styled.aside`
     display: flex;
     flex-direction: column;
     width: 29vw;
     gap: 60px;
+
+    @media (max-width: 900px) {
+        width: 80%;
+        gap: 30px;
+    }
 `
 export const Info = styled.div`
     width: 100%;
@@ -36,12 +55,24 @@ export const Info = styled.div`
     h1 {
         font-weight: 500;
         font-size: 70px;
+        text-align: center;
     }
 
     p {
         font-weight: 400;
         font-size: 20px;
         margin-top: 30px;
+    }
+
+    @media (max-width: 900px) {
+        h1 {
+            font-size: 40px;
+        }
+
+        p {
+            margin: 15px 4% 0 4%;
+            font-size: 17px;
+        }
     }
 `
 export const Inputs = styled.div`
@@ -57,6 +88,7 @@ export const Inputs = styled.div`
         outline: none;
         font-size: 20px;
         text-indent: 5px;
+        width: 100%;
     }
 
     button {
@@ -70,6 +102,24 @@ export const Inputs = styled.div`
         font-weight: 300;
         margin-top: 70px;
     }
+
+    @media (max-width: 900px) {
+        gap: 15px;
+        align-items: center;
+        
+        input {
+            height: 25px;
+            font-size: 17px;
+            width: 90%;
+        }
+
+        button {
+            height: 40px;
+            font-size: 19px;
+            width: 90%;
+            margin-top: 20px;
+        }
+    }
 `
 export const Right = styled.div`
     display: flex;
@@ -77,4 +127,11 @@ export const Right = styled.div`
     gap: 20px;
     width: 620px;
     height: 520px;
+
+    @media (max-width: 900px) {
+        width: 350px;
+        justify-content: center;
+        gap: 10px;
+        height: 310px;
+    }
 `
