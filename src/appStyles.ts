@@ -105,6 +105,10 @@ export const Inputs = styled.div`
         margin-top: 70px;
     }
 
+    button:disabled, input:disabled {
+        opacity: 0.8;
+    }
+
     @media (max-width: 900px) {
         gap: 15px;
         align-items: center;

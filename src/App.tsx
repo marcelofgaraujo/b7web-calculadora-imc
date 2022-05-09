@@ -71,6 +71,7 @@ function App() {
     inputRefHeight.current.focus();
     setHeight(undefined);
     setWeight(undefined);
+    setIMC(0);
   }, []);
 
   return (
@@ -91,14 +92,16 @@ function App() {
               type="number"
               onChange={handleHeight}
               placeholder="Digite sua altura. Ex: 1.5 (em metros)"
+              disabled={IMC > 0 && true}
             />
             <input
               ref={inputRefWeight}
               type="number"
               onChange={handleWeight}
               placeholder="Digite seu peso. Ex: 75.3 (em kg)"
+              disabled={IMC > 0 && true}
             />
-            <button onClick={handleIMC}>Calcular</button>
+            <button onClick={handleIMC} disabled={IMC > 0 && true}>Calcular</button>
           </C.Inputs>
         </C.Left>
         <C.Right>
