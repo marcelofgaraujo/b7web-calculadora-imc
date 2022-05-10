@@ -65,7 +65,7 @@ export const Status = styled.div<StatusProps>`
         svg {
             transform: rotate(90deg);
             top: 0;
-            left: 50%;
+            left: auto;
             height: 40px;
             width: 40px;
         }
